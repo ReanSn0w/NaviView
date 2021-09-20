@@ -12,7 +12,7 @@ public struct NaviBar<Leading, Back, Trailing, Content, Background>: View where 
     @Environment(\.naviView) var navi
     
     var content: Content
-    var back: Back
+    var back: Back?
     var leading: Leading
     var trailing: Trailing
     var bg: Background
@@ -22,7 +22,7 @@ public struct NaviBar<Leading, Back, Trailing, Content, Background>: View where 
     init(
         content: Content,
         leading: Leading,
-        back: Back,
+        back: Back? = nil,
         trailing: Trailing,
         background: Background,
         placement: NaviBarPlacement,
@@ -58,10 +58,12 @@ public struct NaviBar<Leading, Back, Trailing, Content, Background>: View where 
     
     var leadingView: some View {
         HStack {
-            if navi.navigationController?.viewControllers.count ?? 0 > 1 && presentation.wrappedValue.isPresented {
-                Button(action: { self.navi.navigationController?.popViewController(animated: true) }) { back }
+            if let back = back {
+                Button(action: {
+                    self.presentation.wrappedValue.dismiss()
+                }) { back }
             }
-            
+                
             leading
         }
     }

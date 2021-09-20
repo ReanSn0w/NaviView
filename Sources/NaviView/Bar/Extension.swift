@@ -9,7 +9,7 @@ import SwiftUI
 
 extension NaviBar where Leading == Spacer, Trailing == Spacer, Back == Spacer, Content == Spacer, Background == Color {
     public init() {
-        self.back = Spacer()
+        self.back = nil
         self.leading = Spacer()
         self.trailing = Spacer()
         self.bg = Color(.secondarySystemBackground)
@@ -74,11 +74,11 @@ public extension NaviBar {
             style: self.style)
     }
     
-    func back<Changed: View>(item: () -> Changed) -> NaviBar<Leading, Changed, Trailing, Content, Background> {
+    func back<Changed: View>(item: (() -> Changed)?) -> NaviBar<Leading, Changed, Trailing, Content, Background> {
         NaviBar<Leading, Changed, Trailing, Content, Background>(
             content: self.content,
             leading: self.leading,
-            back: item(),
+            back: item?(),
             trailing: self.trailing,
             background: self.bg,
             placement: self.placement,
