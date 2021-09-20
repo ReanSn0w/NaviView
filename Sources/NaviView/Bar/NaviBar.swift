@@ -60,7 +60,7 @@ public struct NaviBar<Leading, Back, Trailing, Content, Background>: View where 
         HStack {
             if let back = back {
                 Button(action: {
-                    self.presentation.wrappedValue.dismiss()
+                    self.navi.navigationController?.popViewController(animated: true)
                 }) { back }
             }
                 
